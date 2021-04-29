@@ -1084,7 +1084,7 @@ their data, which is not allowed for core integrations.
 - Address late review comments for denonavr ([@MarBra] - [#49666]) ([denonavr docs])
 - Only compile esphome icon schema once ([@bdraco] - [#49688]) ([esphome docs])
 - Add selectors to ecobee services ([@tkdrob] - [#49499]) ([ecobee docs])
-- Don't ignore mypy errors by default ([@KapJI] - [#49270]) ([automation docs]) ([knx docs])
+- Don't ignore mypy errors by default ([@KapJI] - [#49270]) ([automation docs])
 - Add selectors to cast services ([@tkdrob] - [#49684]) ([cast docs])
 - KNX Schema improvements ([@farmio] - [#49678]) ([knx docs])
 - Add selector to tts services ([@tkdrob] - [#49703]) ([tts docs])
