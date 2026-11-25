@@ -496,7 +496,7 @@ To use the tools from an external MCP client instead, use the [Model Context Pro
 
 ### Available tools
 
-The API provides 21 tools in four groups. If a tool cannot run, it reports the reason back to the agent, for example that no ETS project is loaded or that the telegram store is unavailable.
+The API provides 24 tools in four groups. If a tool cannot run, it reports the reason back to the agent, for example that no ETS project is loaded or that the telegram store is unavailable.
 
 #### Telegram history
 
@@ -504,7 +504,9 @@ The API provides 21 tools in four groups. If a tool cannot run, it reports the r
 
 #### ETS project
 
-`get_project_info`, `list_group_addresses`, `describe_group_address`, `list_devices`, `list_communication_objects`, `list_functions`, `describe_function`, and `get_topology` answer questions about your installation: group addresses and their names, devices and their communication objects, functional blocks, and the area and line topology. They require a project file uploaded in the KNX panel.
+`get_project_info`, `list_group_addresses`, `describe_group_address`, `list_devices`, `list_communication_objects`, `list_channels`, `describe_channel`, `find_similar_channels`, `list_functions`, `describe_function`, and `get_topology` answer questions about your installation: group addresses and their names, devices with their communication objects and channels, functional blocks, and the area and line topology. They require a project file uploaded in the KNX panel.
+
+A channel is one part of a device, for example a single output of a switch actuator. `find_similar_channels` finds the channels that are built the same way as a channel you name and lines up their group addresses. This helps an agent apply what it learned from one channel to the others, for example to all outputs of an actuator.
 
 #### Data point types
 
