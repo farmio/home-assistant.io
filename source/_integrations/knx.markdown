@@ -496,7 +496,8 @@ To use the tools from an external MCP client instead, use the [Model Context Pro
 
 ### Available tools
 
-The API provides 24 tools in four groups. If a tool cannot run, it reports the reason back to the agent, for example that no ETS project is loaded or that the telegram store is unavailable.
+The API provides 26 tools in five groups.
+If a tool cannot run, it reports the reason back to the agent, for example that no ETS project is loaded or that the telegram store is unavailable.
 
 #### Telegram history
 
@@ -507,6 +508,22 @@ The API provides 24 tools in four groups. If a tool cannot run, it reports the r
 `get_project_info`, `list_group_addresses`, `describe_group_address`, `list_devices`, `list_communication_objects`, `list_channels`, `describe_channel`, `find_similar_channels`, `list_functions`, `describe_function`, and `get_topology` answer questions about your installation: group addresses and their names, devices with their communication objects and channels, functional blocks, and the area and line topology. They require a project file uploaded in the KNX panel.
 
 A channel is one part of a device, for example a single output of a switch actuator. `find_similar_channels` finds the channels that are built the same way as a channel you name and lines up their group addresses. This helps an agent apply what it learned from one channel to the others, for example to all outputs of an actuator.
+
+`list_group_addresses` and `describe_group_address` also name the Home Assistant {% term entities %} that use a group address.
+A group address without entities is not used by any entity yet.
+
+#### Entities and group addresses
+
+`list_group_address_usage` and `describe_entity_group_addresses` connect your KNX installation with the Home Assistant {% term entities %} you created from it.
+
+`list_group_address_usage` lists the group addresses that are in use, each with its entities.
+An agent can use it to tell which entity a telegram on the bus belongs to, or to check whether a group address already has an entity.
+It does not need a project file.
+
+`describe_entity_group_addresses` shows which devices and channels the group addresses of one entity are linked to in your project.
+If one address belongs to a different channel than the others, the entity may be set up with a wrong group address.
+Some entities, such as climate entities, use several devices on purpose, so the agent has to judge each case.
+This tool requires a project file uploaded in the KNX panel.
 
 #### Data point types
 
@@ -2546,7 +2563,9 @@ The following table lists the supported numeric Data Point Types (DPT). You can 
 
 - The [KNX tools for AI conversation agents](#knx-tools-for-ai-conversation-agents) return at most 1000 entries per call. An agent can page through the rest, but a question that would need the entire project or the full telegram history in a single answer may not be answered completely.
 
-- The KNX tools work on raw KNX data: group addresses, individual addresses, and <abbr title="data point types">DPTs</abbr>. They do not know about the Home Assistant {% term entities %} you created from those group addresses. To let an agent control those entities as well, keep **Device control** selected alongside **KNX**.
+- The KNX tools work on raw KNX data: group addresses, individual addresses, and <abbr title="data point types">DPTs</abbr>.
+  They can tell which Home Assistant {% term entities %} use a group address, but they cannot control those entities.
+  To let an agent control them as well, keep **Device control** selected alongside **KNX**.
 
 - USB bus interfaces are not directly supported by the underlying [`xknx` library](https://github.com/XKNX/xknx). However, you could try to run a software KNX router such as `Calimero` or `knxd` alongside Home Assistant to serve as a USB to IP bridge. For best reliability, using a certified KNX IP interface or router is recommended.
 
